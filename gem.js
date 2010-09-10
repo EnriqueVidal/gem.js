@@ -35,8 +35,8 @@ Array.prototype.all = function() {
 
 /* This method return all the members of an array that match a condition
 *
-* array1.select({ condition: function(current) { if ( current >= 3 ) 			return current; } }); => returns [4, 5]
-* array2.select({ condition: function(current) { if ( current < 3 )				return current; } }); => returns [1, 2]
+* array1.select({ condition: function(current) { if ( current >= 3 ) return current; } }); => returns [4, 5]
+* array2.select({ condition: function(current) { if ( current < 3 )  return current; } }); => returns [1, 2]
 * array3.select({ condition: function(current) { if (current == "batman") return current; } }); => returns [ ] 
 *
 */
@@ -51,10 +51,22 @@ Array.prototype.select = function(obj)
   return match;
 }
 
-/*
+/* This method returns the result of an operation run against the whole collection of items in the array
 *
-*
+* array.inject({ inject: function(collection, current) { return current * collection; } }); => returns 120
+* array.inject({ inject: function(collection, current) { return current + collection; } }); => returns 15
 */
+
+Array.prototype.inject = function(obj) {
+  var result = 0;
+  var collection = 0;    
+
+  for(var i =0; i < this.length; i++)
+  {
+     result     = (obj.inject(result, this[i]) == 0 && i == 0) ? obj.inject(1, this[i]) : obj.inject(result, this[i]);
+  }
+  return result;
+}
 
 /* Assume the following string for each of the comments examples
 *
