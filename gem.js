@@ -68,6 +68,56 @@ Array.prototype.inject = function(obj) {
   return result;
 }
 
+/* This method returns the first n elements of an array if length is defined
+*
+* array1.first() 	=> 1
+* array1.first(3) => [1, 2, 4]
+*/
+
+Array.prototype.first = function(length) {
+	if (length) {
+		var result = new Array();
+		for (var i=0; i < length; i++) {
+			if (i == this.length) break;
+			result[i] = this[i];
+		}
+		return result;
+	}
+	return this[0];
+}
+
+/* This method returns the last n elements of an array if length is defined
+*
+* array1.last() 	=> 5
+* array1.first(3) => [5, 4, 2]
+*/
+Array.prototype.last = function(length) {
+	if (length) {
+		var result = new Array();
+		var count = 0;
+
+		for (var i= this.length - 1; i >= 0; i--){
+			if (count == length) break;
+			result[count] = this[i];
+			count++;
+		}
+		return result;
+	}
+	return this[this.length - 1];
+}
+/* This method returns the current object that called it and iterated over the collection running a closure
+*
+*array1.each(function(index, value) { console.log(vale * 2); } ) => [ 1, 2, 4, 5 ] #it also logs 2, 4, 6, 8, 10
+*/
+
+Array.prototype.each = function(closure) {
+    for (var i = 0; i < this.length; i++)
+    {
+        closure(i, this[i]);
+    }
+    return this;
+}
+
 /* Assume the following string for each of the comments examples
 *
 * var string = "batman";
@@ -104,4 +154,15 @@ String.prototype.reverse = function(){
     revertext    = splitext.reverse();
     reversed     = revertext.join("");
     return reversed;
+}
+
+
+Object.prototype.all = new Array();
+Object.prototype.find = function(id) {
+    for (var i=0; i < this.all.length; i++)
+    {
+        if (this.all[i].id == id)
+            return this.all[i];
+    }
+    return null;
 }
